@@ -1,4 +1,4 @@
-# OffSec-SaaS (MVP)
+## OffSec-SaaS (MVP)
 
 Offensive Security as a Service (OSaaS) – An automated red-team style platform that continuously simulates hacker attacks, runs recon, and reports vulnerabilities in real time.
 This is a Day 1 MVP skeleton with FastAPI backend, React frontend, and PostgreSQL database.
@@ -22,7 +22,7 @@ FE fetches message from BE:
 "OffSec SaaS API is running 🚀"
 
 # Next Steps
-#WEEK 1 – Recon + Core Foundation
+# WEEK 1 – Recon + Core Foundation
 
 Day 1 – Project Bootstrapping
 
@@ -78,7 +78,7 @@ Fix bugs.
 
 👉 End of Week 1 Deliverable: Enter domain → see subdomains, open ports, services, and possible exposed keys in a clean dashboard.
 
-#WEEK 2 – Offensive Simulation (Free Tools)
+# WEEK 2 – Offensive Simulation (Free Tools)
 
 Day 8 – Add Weak Password Check
 
@@ -132,7 +132,7 @@ Debug multiple targets flow.
 
 👉 End of Week 2 Deliverable: Recon + simulated attacks → dashboard + PDF report.
 
-#WEEK 3 – Notifications & Multi-Project
+# WEEK 3 – Notifications & Multi-Project
 
 Day 15 – Email Alerts
 
@@ -172,7 +172,7 @@ Test end-to-end flow.
 
 👉 End of Week 3 Deliverable: Multi-project, email alerts, dashboard with history, login system.
 
-#WEEK 4 – Deployment & Final Demo Prep
+# WEEK 4 – Deployment & Final Demo Prep
 
 Day 22 – Deployment Setup
 
