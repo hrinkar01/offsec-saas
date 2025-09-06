@@ -13,24 +13,6 @@ This is a Day 1 MVP skeleton with FastAPI backend, React frontend, and PostgreSQ
 
  PostgreSQL container (ready for later models)
 
-# Project Structure
-offsec-saas-mvp/
-│── backend/
-│   ├── app/
-│   │   ├── main.py
-│   │   ├── database.py
-│   │   ├── routers/ (future)
-│   │   ├── models/  (future)
-│   └── requirements.txt
-│
-│── frontend/
-│   ├── src/
-│   │   └── App.js
-│   └── package.json
-│
-│── docker-compose.yml (future deployment)
-│── README.md
-
 ✅ Day 1 Deliverable
 
 Add a target project skeleton.
