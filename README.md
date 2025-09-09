@@ -3,204 +3,66 @@
 Offensive Security as a Service (OSaaS) – An automated red-team style platform that continuously simulates hacker attacks, runs recon, and reports vulnerabilities in real time.
 This is a Day 1 MVP skeleton with FastAPI backend, React frontend, and PostgreSQL database.
 
-# 25 Days MVP ROADMAP
-## WEEK 1 – Recon + Core Foundation
+# ⚡ Offensive Web App Features (Hackathon-Ready)
+## 🌐 Recon & Discovery
 
-Day 1 – Project Bootstrapping
+Port & Service Scanning → nmap -sV target.com to enumerate open ports and service versions.
 
-Setup GitHub repo.
+Tech Stack Fingerprinting → whatweb target.com to detect CMS, frameworks, and languages.
 
-Backend: FastAPI (Python) (super lightweight).
+Subdomain Enumeration → subfinder -d target.com to uncover hidden subdomains.
 
-DB: Postgres (free).
+Directory/Endpoint Bruteforce → gobuster dir -u target.com -w wordlist.txt to find hidden paths.
 
-Frontend: React (scaffold with Vite or CRA).
+## 💉 Input Attacks
 
-Setup a dummy “add target” form.
+SQL Injection Auto-Testing → sqlmap -u "http://target.com/page?id=1" to detect and exploit SQLi.
 
-Day 2 – Subdomain Recon (Free Tools)
+XSS Injection → xsstrike -u target.com/page to test reflected and stored XSS payloads.
 
-Integrate Sublist3r or Amass → discover subdomains.
+Command Injection Check → commix --url="http://target.com/page?cmd=ls" to detect OS injections.
 
-Command → Python wrapper → return JSON.
+File Upload Exploit Detection → Upload shell.php.jpg and request it back to bypass filters.
 
-Store results in DB.
+CSRF Weakness Detection → Analyze POST forms; missing/constant token = vulnerable.
 
-Day 3 – Port & Service Scan
+SSRF Checks → Inject http://127.0.0.1:22 or file:///etc/passwd into URL params and observe response.
 
-Integrate Nmap (python-nmap).
+## 🔒 Authentication / Session Attacks
 
-Scan top 1000 ports for a given domain.
+Weak Login Bruteforce → hydra -l admin -P passwords.txt target.com http-post-form.
 
-Parse into JSON.
+Credential Stuffing → Replay breached creds (e.g., from RockYou) against login endpoint.
 
-Day 4 – Banner Grabbing
+Session Hijacking → Reuse stolen session cookies (document.cookie) to bypass login.
 
-Extend Nmap: capture service/version banners.
+JWT/Token Weakness Check → jwt_tool <token> to brute-force or forge weak JWTs.
 
-Add “Tech stack detected” (Apache, nginx, MySQL, etc).
+## 📡 App Logic & Config Attacks
 
-Day 5 – Dashboard Basics
+Broken Access Control → Directly visit /admin or modify POST roles to escalate privileges.
 
-React: Show subdomains + ports + banners in table.
+Privilege Escalation in Web App → Change numeric IDs in requests to access restricted data.
 
-Add “Risk badge” → (open RDP port = Red, HTTPS = Green).
+Directory Traversal → Replace params with ../../etc/passwd to read system files.
 
-Day 6 – GitHub Exposure Scan
+IDOR (Insecure Direct Object Ref.) → Change user_id=123 → 124 to view other users’ data.
 
-Use GitHub dorks via free search API (rate limited but free).
+Exposed Debug Panels → Access /phpinfo, /swagger, /debug for sensitive config leaks.
 
-Parse if API keys, passwords, or “.env” files show up.
+## 🔑 Encryption & Network Layer
 
-Day 7 – Buffer/Testing
+TLS/SSL Misconfig → testssl.sh target.com to check weak ciphers and expired certs.
 
-Polish API routes.
+Mixed Content Detection → Look for HTTPS pages loading http:// scripts.
 
-Fix bugs.
+Session Cookie Flags Check → Inspect Set-Cookie headers for missing HttpOnly/Secure.
 
-👉 End of Week 1 Deliverable: Enter domain → see subdomains, open ports, services, and possible exposed keys in a clean dashboard.
+## 🐍 Exploit Replay & PoC
 
-## WEEK 2 – Offensive Simulation (Free Tools)
+Known CVE Replay → searchsploit <service version> or msfconsole for public exploits.
 
-Day 8 – Add Weak Password Check
-
-Use hydra (offline tool) → brute force weak creds on SSH/FTP (just a few tries, not DoS).
-
-Wrap output in JSON.
-
-Day 9 – Vulnerability Scanner Integration
-
-Use Nmap NSE scripts (free vulns detection).
-
-Example: SSL vulns, SMB vulns.
-
-Parse results into “Critical/High/Medium/Low.”
-
-Day 10 – Web Vuln Checks
-
-Add Nikto (open-source web vuln scanner).
-
-Run basic checks → parse into DB.
-
-Day 11 – Parser & Risk Score
-
-Convert raw tool outputs → findings format:
-
-Title
-
-Severity
-
-Description
-
-Suggested Fix
-
-Assign scores manually (no AI).
-
-Day 12 – PDF Reports
-
-Generate reports via ReportLab or wkhtmltopdf.
-
-Include project name, summary, findings, fixes.
-
-Day 13 – Dashboard Upgrade
-
-Add charts (React chart.js): severity pie chart.
-
-Add timeline (“scan run at 2 PM”).
-
-Day 14 – Buffer
-
-Debug multiple targets flow.
-
-👉 End of Week 2 Deliverable: Recon + simulated attacks → dashboard + PDF report.
-
-## WEEK 3 – Notifications & Multi-Project
-
-Day 15 – Email Alerts
-
-Use free SMTP (Gmail/Yahoo).
-
-Send “⚠️ Critical vuln found on example.com.”
-
-Day 16 – Multi-Project Support
-
-User can add multiple domains.
-
-Separate results by project ID.
-
-Day 17 – User Auth
-
-Basic JWT auth (fastapi-users).
-
-Signup/Login/Logout.
-
-Day 18 – Dashboard Polish
-
-Add filters (Critical only, Web vulns only).
-
-Severity badges (red/orange/yellow/green).
-
-Day 19 – Scan History
-
-Store multiple scan runs → compare results over time.
-
-Day 20 – Mock Jira Integration
-
-Add “Send to Jira” button (just saves in DB as ‘ticket created’).
-
-Day 21 – Buffer
-
-Test end-to-end flow.
-
-👉 End of Week 3 Deliverable: Multi-project, email alerts, dashboard with history, login system.
-
-## WEEK 4 – Deployment & Final Demo Prep
-
-Day 22 – Deployment Setup
-
-Use Heroku (free tier) or Render.com free plan.
-
-Push FastAPI backend.
-
-Deploy frontend to Netlify/Vercel.
-
-Day 23 – Orchestration
-
-Add background job queue → Celery + Redis (run scans async).
-
-Prevent UI from freezing.
-
-Day 24 – Demo Flow Polish
-
-Create smooth flow:
-
-Add target → scan starts.
-
-Recon + vulns show on dashboard.
-
-Email alert triggered.
-
-PDF report downloadable.
-
-Day 25 – Final Dry Run + Backup
-
-Backup DB.
-
-Take screenshots/video of workflow.
-
-Practice pitch.
-
-👉 End of Week 4 Deliverable: A live MVP platform deployed online that:
-
-Runs recon + vulns scan.
-
-Simulates weak attacks.
-
-Generates PDF reports.
-
-Sends alerts.
-
-Has dashboard + history.
+PoC Exploit Simulation → Replace real RCE with fake “Exploit Succeeded” message in report (safe demo).
 
 # Features (Day 1)
 
